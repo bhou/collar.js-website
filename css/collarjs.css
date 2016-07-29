@@ -1,0 +1,14 @@
+.container {
+  max-width: 800px;
+}
+
+#root-row {
+  margin-top : 25%;
+}
+
+/* Larger than tablet */
+@media (min-width: 550px) {
+  #root-row {
+    margin : 25%;
+  }
+}
