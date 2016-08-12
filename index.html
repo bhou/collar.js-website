@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <title>collar.js : a better way to write comprehensible code</title>
   <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="author" content="Bo HOU">
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -15,13 +15,18 @@
 
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <!-- <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css"> -->
-  <link href="css/font.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway+Dots" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <!-- <link href="css/font.css" rel="stylesheet" type="text/css"> -->
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
   <link rel="stylesheet" href="css/collarjs.css">
+
+  <!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -29,58 +34,169 @@
 
 </head>
 <body>
-
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <section class="header row value-props">
+    <div class="row" style="position: relative;">
+      <img class="fit-img" src="./images/collar.png"/>
+      <h1 class="logo u-full-width" style="position: absolute;bottom: 0;">collar.js</h1>
+    </div>
+    <div class="row">
+      <h4 class="title">A better way to make your code comprehensible.</h4>
+      <a class="button button-primary" href="#get-started">Get Started</a>
+      <a class="button button-primary" href="#get-started">Get Docs</a>
+    </div>
+  </section>
   <div class="container">
-    <div id="root-row" class="row">
-      <div class="u-full-width">
+    <div class="docs-section" id="intro">
+      <h6 class="docs-header">What is collar.js</h6>
+      <p>collar.js = an asynchronous library + visualization development tool</p>
+      <p>Building high quality software relies on a good understanding of the code. However,
+        it is hard to understand the code when LoC increase.</p>
+      <p>In chinese, there is an old saying : 提 ti  纲 gang 挈 qie 领 ling, literally means to lift the clothes by its collar.
+        Figuratively means to concentrate on the main points or to bring out the essentials.</p>
 
-        <!-- title -->
-        <div class="row"><h1>collar.js</h1></div>
-        <div class="row">
-        <p>
-          A better way to write comprehensible code
-        </p>
+      <p>This is how collar.js can help you to build high quality software : build your code's main
+        data flows (as clothes' collar) with collar.js and visualize it to make it much easier to understand. collar.js
+        is not just a visualization tool, it builds with several dev tools to help you understand your code easier
+        in an interactive way.</p>
+      <div class="row">
+        <div class="three columns value-prop">
+          <img class="value-img fit-img" src="images/collar.png">
+          Visualized development, directly translate your thought into code,
+          record and playback your data flow, debug visually
         </div>
-
-        <div></br></div>
-        <div></br></div>
-
-        <!-- features -->
-        <div class="row">
+        <div class="three columns value-prop">
+          <img class="value-img fit-img" src="images/collar.png">
+          Asynchronous programming, fluent and simple API (less than 20). Compatible with your exsting code.
+        </div>
+        <div class="three columns value-prop">
+          <img class="value-img fit-img" src="images/collar.png">
+          Single responsibility principle. collar.js has 4 basic elements : sensor, filter,
+          processor, and actuator.
+        </div>
+        <div class="three columns value-prop">
+          <img class="value-img fit-img" src="images/collar.png">
+          Frontend and backend support. collar.js works in both browser and nodejs.
+        </div>
+      </div>
+    </div>
+    <div class="docs-section" id="get-started">
+      <h6 class="docs-header">Get Started</h6>
+      <ol>
+        <li>
+          Install collar.js
           <ul>
-            <li>live coding: code as the way you think</li>
-            <li>real time architecture visualization</li>
-            <li>record and playback code running process</li>
-            <li>asynchrounous programming</li>
-            <li>fluent coding style</li>
-            <li>simple api (less than 20)</li>
-            <li>live document, code is your document</li>
-            <li>compatible with existing codes</li>
-            <li>and more ...</li>
+            <li>Install from npm
+              <pre class="code-example"><code class="code-example-body prettyprint">
+npm install collar --save
+              </code></pre>
+            </li>
+            <li>or download 'collar.min.js' directly
+              <div class="code-example">
+<a class="button button-primary" href="#get-started">Download collar.min.js</a>
+              </div>
+            </li>
           </ul>
+        </li>
+        <li>
+          Require collar.js in your module, and create a namespace
+          <ul>
+            <li>for nodejs
+              <pre class="code-example"><code class="code-example-body prettyprint">
+const collar = require("collar");
+const ns = collar.ns("your.module.namespace");
+              </code></pre>
+            </li>
+            <li>for browser
+              <pre class="code-example"><code class="code-example-body prettyprint">
+const ns = collar.ns("your.module.namespace");
+              </code></pre>
+            </li>
+          </ul>
+        </li>
+        <li>Build your work flow with collar
+          <ul>
+            <li> A greeting example:
+              <pre class="code-example"><code class="code-example-body prettyprint">
+ns.sensor("send name", function(){
+    this.send({
+      name : "John"
+    });
+  })
+  .map("generate greeting words", signal => {
+    let name = signal.get("name");
+    return signal.new({
+      greeting : `Hello! ${name}`
+    });
+  })
+  .do("print greeting", signal => {
+    console.log(signal.get("greeting"));
+  })
+              </code></pre>
+            </li>
+          </ul>
+        </li>
+        <li>Visualize your code by enabling the development tool.
+          <ol>
+            <li>Install collar.js development tool
+              <pre class="code-example"><code class="code-example-body prettyprint">
+sudo npm install collar-dev-tool -g
+              </code></pre>
+            </li>
+            <li>Run collar.js development tool
+              <pre class="code-example"><code class="code-example-body prettyprint">
+collar-dev-tool
+              </code></pre>
+            </li>
+            <li>At the beginning of your module, enable collar development tool
+              <pre class="code-example"><code class="code-example-body prettyprint">
+collar.enableDevtool({url: "http://localhost:7500"});
+              </code></pre>
+            </li>
+            <li>
+              Run your module, and check collar development tool, your code is visualized like this:
+              <img class="fit-img" src="images/get-started-example.png"/>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </div>
+    <div class="docs-section" id="example">
+      <h6 class="docs-header">Examples</h6>
+      <div class="row example">
+        <a class="example-screenshot-wrapper" target="_blank" href="examples/landing">
+          <img class="example-screenshot" src="images/examples/login-example.png">
+        </a>
+        <div class="one-half offset-by-one-half column">
+          <h6 class="example-header">Example: Frontend login module</h6>
+          <p class="example-description">This example demonstrates how to create a frontend login module with collar.js.
+            You will learn how easy it is to translate your thoughts into collar.js data flow,
+            and how you can demonstrate your code to others with collarjs' record &amp; playback features.
+          </p>
+          <a class="button" href="examples/landing" target="_blank">See tutorial</a>
         </div>
+      </div>
 
-        <div></br></div>
-        <div></br></div>
-
-        <!-- <div class="row">
-          <div class="one-third column"><button>Demo 1</button></div>
-          <div class="one-third column"><button>Demo 2</button></div>
-        </div> -->
-
-        <div></br></div>
-
-        <div class="row">
-          <button>Download (Coming soon...)</button>
-          <!-- <button>Download (alpha version)</button> -->
+      <div class="row example">
+        <a class="example-screenshot-wrapper" target="_blank" href="examples/landing">
+          <img class="example-screenshot" src="images/examples/login-example.png">
+        </a>
+        <div class="one-half offset-by-one-half column">
+          <h6 class="example-header">Example: Backend authentication module</h6>
+          <p class="example-description">This example demonstrates how to create a backend authentication module with collar.js.
+            It is a follow-up example of the 'Frontend login module' example. You will learn how to wire up different modules together
+            to build an application, and how to use namespace to make a clean visualization.
+          </p>
+          <a class="button" href="examples/landing" target="_blank">See tutorial</a>
         </div>
       </div>
     </div>
   </div>
 
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+
+  <!-- End Document
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 </html>
