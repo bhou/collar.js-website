@@ -28,6 +28,15 @@
   <!-- Scripts
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-82466351-1', 'auto');
+    ga('send', 'pageview');
+  </script>
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -120,7 +129,7 @@ npm install collar.js --save
             </li>
             <li>or download 'collar.min.js' directly
               <div class="code-example">
-<a class="button button-primary" href="/download/collar.min.v0.3.3.js" download>Download collar.min.js</a>
+<a class="button button-primary" href="/download/collar.min.v0.3.3.js" download onclick="ga('send', 'event', 'Links', 'download', 'collar.min.js');">Download collar.min.js</a>
               </div>
             </li>
           </ul>
@@ -225,14 +234,4 @@ collar.enableDevtool({url: "http://localhost:7500"});
   <!-- End Document
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-82466351-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
 </html>
