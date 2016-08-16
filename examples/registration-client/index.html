@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>collar demo : registration</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/fontawesome.min.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <style>
+  .disabled-btn {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+  </style>
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div id="main" class="row">
+      <div class="one-half column" style="margin: 25%;">
+        <div class="u-full-width">
+          <p>
+            collar.js example : registration demo
+          </p>
+        </div>
+
+        <div id="error-banner" class="u-full-width" style="color: red; display : none;">
+        </div>
+
+        <div class="u-full-width">
+          <label for="email">Your email <i id="email-spinner" class="fa fa-spinner fa-spin" style="color: red; display : none;"></i></label>
+          <input class="u-full-width" type="email" pattern="[^ @]*@[^ @]*" placeholder="test@mailbox.com" id="email">
+        </div>
+        <div class="u-full-width">
+          <label for="password">Your password</label>
+          <input class="u-full-width" type="password" placeholder="your password" id="password">
+        </div>
+        <button id="register-btn" class="disabled-btn">Register</button>
+        <div class="u-full-width">
+          </br>
+        </div>
+        <div class="u-full-width">
+          <p>
+            The register button will be enabled, when you enter a non-registered email,
+            and a valid password (Minimum 8 characters at least 1 Alphabet and 1 Number).
+          </p>
+          <p>
+            The validation model of the view:
+          </p>
+
+          <pre><code>
+{
+  emailStatus :  "ok", // "ok" or error message
+  passwordStatus : "ok", // "ok" or error message
+}
+          </code></pre>
+
+          By using collar.js' [model] node, you can easily bind your model to your view.
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/collar.min.v0.3.4.js"></script>
+<script src="./js/register.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82466351-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

@@ -1,4 +1,4 @@
-// collar.enableDevtool();
+collar.enableDevtool();
 
 // create 'login' namespace
 var loginNS = collar.ns("login");
@@ -12,24 +12,14 @@ var loginValidInput = loginInputValidationNS.input("login validation input");
 var loginUISensor = loginNS.sensor("login sensor", function(options) {
   if (options == "ui event") {
     $("#signin-btn").click(() => {
+      var email = $("#emailInput").val();
+      var password = $("#passwordInput").val();
       this.send({
-        event : 'signin'
+        event : 'signin',
+        email : email,
+        password : password
       })
     });
-
-    $("#emailInput").on("input", () => {
-      this.send({
-        event : "typing",
-        field : "email"
-      })
-    })
-
-    $("#passwordInput").on("input", () => {
-      this.send({
-        event : "typing",
-        field : "password"
-      })
-    })
   } else {
     $(document).ready(() => {
       this.send({
@@ -53,20 +43,7 @@ var checkCredential = loginInput
   .when("'signin' event", signal => {
     return signal.get("event") === "signin";
   })
-  .do("get credential from UI", signal => {
-    return {
-      email : $("#emailInput").val(),
-      password : $("#passwordInput").val()
-    }
-  })
-  .map("prepare credential event", signal => {
-    return signal.new({
-      event : signal.get("event"),
-      email : signal.getResult().email,
-      password : signal.getResult().password
-    })
-  })
-  .do("check credential", signal => {
+  .do("check credential", {email : "user email", password : "user password"}, {__result__ : "object with valid, and reason"}, signal => {
     var email = signal.get("email");
     var password = signal.get("password");
 
@@ -83,20 +60,21 @@ var checkCredential = loginInput
       }
     }
   })
-  .map("prepare credential check result", signal => {
+  .map("prepare credential check result", {event : "event", email : "user email", __result__ : "object with valid, and reason"}, {email : "user email", valid : "boolean", reason : "why it is not valid"},
+  signal => {
     return signal.new({
       event : signal.get("event"),
       email : signal.get("email"),
       valid : signal.getResult().valid,
       reason : signal.getResult().reason
     })
-  })
+  });
 
 checkCredential
-  .when("credential ok", signal => {
-    return signal.get("valid");
-  })
-  .map("prepare 'signin ok' event", signal => {
+  .when("credential ok", signal => signal.get("valid"))
+  .map("prepare 'signin ok' event", {__result__ : "object with valid, email, and reason"},
+    {event : "signin ok", email : "user email"},
+    signal => {
     return signal.new({
       event : 'signin ok',
       email :signal.get("email")
@@ -105,9 +83,7 @@ checkCredential
   .to(loginOutput);
 
 checkCredential
-  .when("credential not ok", signal => {
-    return !signal.get("valid");
-  })
+  .when("credential not ok", signal => !signal.get("valid"))
   .map("prepare 'signin failed' event", signal => {
     return signal.new({
       event : 'signin failed',
@@ -121,84 +97,10 @@ checkCredential
   })
   .to(loginOutput);
 
-// loginInput
-//   .when("'typing' evnet", signal => {
-//     return signal.get("event") == "typing";
-//   })
-//   .do("clear error message", signal => {
-//     $("#error-banner").hide();
-//   });
-
-loginValidInput
-  .when("valid", signal => {
-    return signal.getResult().valid
-  })
-  .do("clear error message", signal => {
-    $("#error-banner").hide();
-  });
-
-loginValidInput
-  .when("not valid", signal => {
-    return !signal.getResult().valid
-  })
-  .do("show error message", signal => {
-    $("#error-banner").html(signal.getResult().reason);
-    $("#error-banner").show();
-  });
-
-var validEmailInput = loginInput
-  .when("'typing' email", signal => {
-    return signal.get("event") == "typing" && signal.get("field") === "email";
-  })
-  .do("clear error message", signal => {
-    $("#error-banner").hide();
-  })
-  .do("validate email", signal => {
-    var email = $("#emailInput").val();
-    if (email.indexOf("@") < 0) {
-      return {
-        valid : false,
-        reason : "Invalid email format"
-      }
-    } else {
-      return {
-        valid : true,
-      }
-    }
-  })
-  .ref(loginValidInput);
-
-var validPasswordInput = loginInput
-  .when("'typing' password", signal => {
-    return signal.get("event") == "typing" && signal.get("field") === "password";
-  })
-  .do("clear error message", signal => {
-    $("#error-banner").hide();
-  })
-  .do("validate password", signal => {
-    var password = $("#passwordInput").val();
-    if (password.length < 6) {
-      return {
-        valid : false,
-        reason : "Password MUST have at least 6 characters"
-      }
-    } else {
-      return {
-        valid : true,
-      }
-    }
-  })
-  .ref(loginValidInput);
-
-
-
-
 // test
 
 loginOutput
-  .when("'signin ok'", signal => {
-    return signal.get("event") === "signin ok";
-  })
+  .when("'signin ok'", signal => signal.get("event") === "signin ok")
   .do("alert", signal => {
     alert("signin ok! " + signal.get("email"))
   })
