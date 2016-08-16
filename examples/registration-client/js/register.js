@@ -1,4 +1,4 @@
-collar.enableDevtool();
+// collar.enableDevtool();
 
 var registerNS = collar.ns("register");
 

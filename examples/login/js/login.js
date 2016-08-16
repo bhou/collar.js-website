@@ -1,4 +1,4 @@
-collar.enableDevtool();
+// collar.enableDevtool();
 
 // create 'login' namespace
 var loginNS = collar.ns("login");
