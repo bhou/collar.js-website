@@ -1,4 +1,16 @@
-// collar.enableDevtool();
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+if (getParameterByName("dev")) {
+  collar.enableDevtool();
+}
 
 // create 'login' namespace
 var loginNS = collar.ns("login");
@@ -98,7 +110,6 @@ checkCredential
   .to(loginOutput);
 
 // test
-
 loginOutput
   .when("'signin ok'", signal => signal.get("event") === "signin ok")
   .do("alert", signal => {
