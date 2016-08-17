@@ -9,7 +9,7 @@ function getParameterByName(name, url) {
 }
 
 if (getParameterByName("dev")) {
-  collar.enableDevtool();
+  collar.enableDevtool({url : "http://localhost:8000"});
 }
 
 // create 'login' namespace
