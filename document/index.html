@@ -1,0 +1,884 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>collar.js API reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;javascript&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="javascript">javascript</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc">
+      </div>
+        <ul class="toc-footer">
+            <li><a href='http://collarjs.com'>Back to collarjs.com</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        
+          <h1 id="introduction">Introduction</h1>
+<pre class="highlight plaintext"><code>┌─┐┌─┐┬  ┬  ┌─┐┬─┐ ┬┌─┐ ┌─┐┌─┐┌┬┐
+│  │ ││  │  ├─┤├┬┘ │└─┐ │  │ ││││
+└─┘└─┘┴─┘┴─┘┴ ┴┴└─└┘└─┘o└─┘└─┘┴ ┴
+</code></pre>
+
+<p><strong>version 0.3.6</strong></p>
+
+<p>Collar.js helps you turn your thoughts into code, and visualize your thoughts in order to help you make high quality software.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>Collar.js works on both font end and back end.</p>
+
+<h3 id="node-js">node.js</h3>
+
+<p>use npm to install <code class="prettyprint">collar.js</code></p>
+
+<blockquote>
+<p>install collar.js with npm</p>
+</blockquote>
+<pre class="highlight shell"><code>npm install collar.js --save
+</code></pre>
+
+<h3 id="browser">browser</h3>
+
+<ul>
+<li><p>options 1 : use npm to install <code class="prettyprint">collar.js</code> and package it with webpack or similar tools</p></li>
+<li><p>options 2 : directly download the latest version from <a href="http://collarjs.com">http://collarjs.com</a> and include it in your web page</p></li>
+</ul>
+
+<h2 id="single-responsibility-principle">Single Responsibility Principle</h2>
+
+          <h1 id="api">API</h1>
+
+<h2 id="node-comment-options">node ( comment, options )</h2>
+
+<blockquote>
+<p>To create a node, who doubles the odds input</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// a node turn odds to an even</span>
+<span class="kd">var</span> <span class="nx">oddDoubler</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+  <span class="na">onSignal</span> <span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">signal</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// only allow odds pass</span>
+      <span class="c1">// do some side effect</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span>
+      <span class="c1">// change input signal</span>
+      <span class="kr">const</span> <span class="nx">outSignal</span> <span class="o">=</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+      <span class="c1">// send it to next node</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">outSignal</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// signal payload is even</span>
+      <span class="c1">// don't make it pass, and request next signal</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">request</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<blockquote>
+<p>To create an error handler.</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">errorHandler</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+  <span class="na">onError</span> <span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">signal</span><span class="p">,</span> <span class="nx">rethrow</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// print error</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
+    <span class="nx">rethrow</span><span class="p">(</span><span class="nx">signal</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<blockquote>
+<p>To create a sensor with &lsquo;watch&rsquo;, which send timeout signal in 10 seconds</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">evenPassFilter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+  <span class="na">watch</span> <span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">setTimer</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span>
+        <span class="na">event</span> <span class="p">:</span> <span class="s2">"timeout"</span>
+      <span class="p">});</span>
+    <span class="p">},</span> <span class="mi">10000</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<blockquote>
+<p>To create a filter with &#39;accept&rsquo;.</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">evenPassFilter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+  <span class="na">accept</span> <span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">signal</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<blockquote>
+<p>To create an actuator with &#39;act&rsquo;, and put &#39;printed&rsquo; as result</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">printPayloadActuator</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+  <span class="na">act</span> <span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">signal</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span>
+    <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">"printed"</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<blockquote>
+<p>To create a processor with &#39;process&rsquo;, and increase payload by 1</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">addOneActuator</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+  <span class="na">process</span> <span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">signal</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<aside class="notice">
+It is not suggested to create node directly with this function. Use <code>sensor</code>, <code>filter</code>, <code>actuator</code>, or <code>processor</code>, unless your node needs multiple responsibilities. See &ldquo;<a href="#single-responsibility-principle">Single Responsibility Principle</a>&rdquo;
+</aside>
+
+<p>A general node constructor. It provides two sets of APIs for you to override in options:</p>
+
+<ol>
+<li>high level API : watch, accept, act, process</li>
+<li>low level API : onSignal, onError, onEnd</li>
+</ol>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.node(comment : string, options : map) : Node</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>comment</td>
+<td>string</td>
+<td>optional, the comment of the node</td>
+</tr>
+<tr>
+<td>options</td>
+<td>object</td>
+<td>optional, the options, see Options section</td>
+</tr>
+</tbody></table>
+
+<h3 id="options">Options</h3>
+
+<table><thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>onSignal(signal)</td>
+<td>function</td>
+<td>process incoming signal, you can call <code class="prettyprint">this.send(signal)</code> to send the signal to next node, or call <code class="prettyprint">this.request()</code> to ask for next signal.</td>
+</tr>
+<tr>
+<td>onError(signal, rethrow)</td>
+<td>function</td>
+<td>process error signal, this function will be called if an <code class="prettyprint">Error</code> signal enters your node. By default, this function blocks the signal. You can use <code class="prettyprint">rethrow(signal)</code> function to rethrow the <code class="prettyprint">Error</code> signal to the flow</td>
+</tr>
+<tr>
+<td>onEnd(signal)</td>
+<td>function</td>
+<td>process END signal, this function will be called if and <code class="prettyprint">END</code> signal enters your node.</td>
+</tr>
+<tr>
+<td>watch(options)</td>
+<td>function</td>
+<td>watch the environment, send signal when necessary.</td>
+</tr>
+<tr>
+<td>accept(signal)</td>
+<td>function</td>
+<td>accept a signal to process or not. Accept the signal if it returns true, otherwise block it.</td>
+</tr>
+<tr>
+<td>act(signal, done)</td>
+<td>function</td>
+<td>make side effects and put the result in a special field (<code class="prettyprint">__result__</code>) of the signal by calling <code class="prettyprint">done(error, result)</code>. Do NOT change the signal payload in this function</td>
+</tr>
+<tr>
+<td>process(signal, done)</td>
+<td>function</td>
+<td>modify the incoming signal, and send a new signal to next node by calling <code class="prettyprint">done(error, newSignal)</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="sensor-comment-inputs-outputs-watch">sensor ( comment, inputs, outputs, watch )</h2>
+
+<blockquote>
+<p>Create a sensor</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">sensor</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">sensor</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span>
+      <span class="na">event</span> <span class="p">:</span> <span class="s2">"timeout"</span><span class="p">,</span>
+      <span class="na">delay</span> <span class="p">:</span> <span class="mi">10000</span>
+    <span class="p">})</span>
+  <span class="p">},</span> <span class="mi">10000</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// sensor starts to watch when it is created</span>
+</code></pre>
+
+<blockquote>
+<p>Create a sensor with options</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">sensor</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">sensor</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">delay</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">;</span> <span class="c1">// default delay</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">delay</span><span class="p">)</span>
+    <span class="nx">delay</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">delay</span><span class="p">;</span>  <span class="c1">// use delay in options</span>
+  <span class="k">else</span>
+    <span class="k">return</span><span class="p">;</span> <span class="c1">// if no delay defined, watch nothing</span>
+
+  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span>
+      <span class="na">event</span> <span class="p">:</span> <span class="s2">"timeout"</span><span class="p">,</span>
+      <span class="na">delay</span> <span class="p">:</span> <span class="nx">delay</span>
+    <span class="p">})</span>
+  <span class="p">},</span> <span class="nx">delay</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">sensor</span><span class="p">.</span><span class="nx">watch</span><span class="p">({</span><span class="na">delay</span> <span class="p">:</span> <span class="mi">5000</span><span class="p">});</span> <span class="c1">// start watch with options</span>
+</code></pre>
+
+<p>Sensor does not accept incoming signals, it watches the external world (compared to your system) and send signals to your system. It is the signal source.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.sensor(comment : string, inputs : map, outputs : map, watch : function) : Node</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>comment</td>
+<td>string</td>
+<td>optional, the comment of the sensor</td>
+</tr>
+<tr>
+<td>inputs</td>
+<td>map</td>
+<td>optional, the input description</td>
+</tr>
+<tr>
+<td>outputs</td>
+<td>map</td>
+<td>optional, the output description</td>
+</tr>
+<tr>
+<td>watch</td>
+<td>function</td>
+<td>the watch function</td>
+</tr>
+</tbody></table>
+
+<h3 id="function-watch-options-any-void">function watch(options : any) : void</h3>
+
+<p>Pass a watch function as parameter to watch the external world</p>
+
+<h2 id="filter-comment-inputs-outputs-accept">filter ( comment, inputs, outputs, accept )</h2>
+
+<blockquote>
+<p>Create a filter</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// only allow the signals, which have the 'age' greater than 18, pass</span>
+<span class="kr">const</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"age"</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre>
+
+<blockquote>
+<p>Create a placeholder filter to record your thoughts. In the following example, neither the filter nor the actuator is implemented, but it is a valid data flow, which correctly records your thoughts. When you run the following code, it acts like a pass-through flow.</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// in collar dev tool, these two nodes are in gray color,</span>
+<span class="c1">// to warning you that they are not implemented yet.</span>
+<span class="nx">collar</span>
+  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="s2">"when age &gt; 18"</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">actuator</span><span class="p">(</span><span class="s2">"show alcohol products"</span><span class="p">);</span>
+</code></pre>
+
+<p>Control signal flow by applying a filter to it.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.filter(comment : string, inputs : map, outputs : map, accept : function) : Node</strong></p>
+
+<h3 id="alias">Alias</h3>
+
+<p><a href="#when-comment-inputs-outputs-accept"><code class="prettyprint">when()</code></a></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>comment</td>
+<td>string</td>
+<td>optional, the comment of the filter</td>
+</tr>
+<tr>
+<td>inputs</td>
+<td>map</td>
+<td>optional, the input description</td>
+</tr>
+<tr>
+<td>outputs</td>
+<td>map</td>
+<td>optional, the output description</td>
+</tr>
+<tr>
+<td>accept</td>
+<td>function</td>
+<td>optional, the accept function, make signal pass with returning true, block signal when returning false</td>
+</tr>
+</tbody></table>
+
+<h3 id="function-accept-options-any-boolean">function accept(options : any) : boolean</h3>
+
+<p>If no &#39;accept&rsquo; function specified, the filter accepts all signals</p>
+
+<h2 id="when-comment-inputs-outputs-accept">when ( comment, inputs, outputs, accept )</h2>
+
+<blockquote>
+<p>Create a filter</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// only allow the signals, which have the 'age' greater than 18, pass</span>
+<span class="kr">const</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"age"</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>An alias of <a href="#filter-comment-inputs-outputs-accept"><code class="prettyprint">filter()</code></a>. See <a href="#filter-comment-inputs-outputs-accept"><code class="prettyprint">filter()</code></a> function for more detail</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.when(comment : string, inputs : map, outputs : map, accept : function) : Node</strong></p>
+
+<h2 id="actuator-comment-inputs-outputs-act">actuator ( comment, inputs, outputs, act )</h2>
+
+<blockquote>
+<p>Create an actuator</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// an http request actuator</span>
+<span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'request'</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">httpRequestActuator</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">actuator</span><span class="p">(</span><span class="s2">"make http request"</span><span class="p">,</span>
+  <span class="p">(</span><span class="nx">signal</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"url"</span><span class="p">);</span>
+    <span class="nx">request</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">done</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">body</span><span class="p">);</span>  <span class="c1">// put the page body to the outgoing signal's result</span>
+    <span class="p">})</span>
+  <span class="p">});</span>
+
+<span class="c1">// print collarjs.com home page</span>
+<span class="nx">collar</span><span class="p">.</span><span class="nx">just</span><span class="p">({</span><span class="na">url</span><span class="p">:</span><span class="s2">"http://collarjs.com"</span><span class="p">})</span>  <span class="c1">// create a single signal source</span>
+<span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s2">"make http request"</span><span class="p">,</span> <span class="nx">httpRequestActuator</span><span class="p">)</span> <span class="c1">// to http request actuator</span>
+<span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"print response body"</span><span class="p">,</span> <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>  <span class="c1">// print result</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">getResult</span><span class="p">());</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">sink</span><span class="p">();</span>  <span class="c1">// drive the passive source</span>
+
+</code></pre>
+
+<p>Make side effects. An actuator does not change the incoming signal (the result of the actuator will be added to a special field in signal, <code class="prettyprint">__result__</code>, see Signal class for more details), it interacts with external worlds.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.actuator(comment : string, inputs : map, outputs : map, act : function) : Node</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>comment</td>
+<td>string</td>
+<td>optional, the comment of the filter</td>
+</tr>
+<tr>
+<td>inputs</td>
+<td>map</td>
+<td>optional, the input description</td>
+</tr>
+<tr>
+<td>outputs</td>
+<td>map</td>
+<td>optional, the output description</td>
+</tr>
+<tr>
+<td>act(signal, done)</td>
+<td>function</td>
+<td>optional, the act function, it takes a callback function as the second argument, which accepts an error and result. If the error argument is not empty, an error signal will be sent, otherwise, the result will be injected to the signal as <code class="prettyprint">__result__</code> field</td>
+</tr>
+</tbody></table>
+
+<h3 id="function-act-signal-signal-done-function-void">function act(signal : Signal, done : function) : void</h3>
+
+<p><code class="prettyprint">done</code> argument is a callback function with signature:</p>
+
+<p>function done(error : Error, result : any) : void</p>
+
+<p>If error argument is not null, an ERROR signal is sent to stream.</p>
+
+<p>If result argument is not null, the result is injected to the signal with a special name : <code class="prettyprint">__result__</code>. You can access it with <code class="prettyprint">signal.getResult()</code></p>
+
+<h2 id="actuatorsync-comment-inputs-outputs-actsync">actuatorSync ( comment, inputs, outputs, actSync )</h2>
+
+<blockquote>
+<p>Create a sync actuator</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">collar</span>
+  <span class="p">.</span><span class="nx">just</span><span class="p">({</span><span class="na">data</span> <span class="p">:</span> <span class="s2">"Hello World"</span><span class="p">})</span>  <span class="c1">// create a single signal source</span>
+  <span class="p">.</span><span class="nx">actuatorSync</span><span class="p">(</span><span class="s2">"print data"</span><span class="p">,</span> <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>  <span class="c1">// print signal data</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"data"</span><span class="p">));</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">sink</span><span class="p">();</span>  <span class="c1">// drive the passive source</span>
+</code></pre>
+
+<p>The synchronous version of <code class="prettyprint">actuator()</code> api. The <code class="prettyprint">actSync</code> function does not take a callback function as argument. Its return value will be injected to signal&rsquo;s <code class="prettyprint">__result__</code> field.</p>
+
+<h3 id="alias">Alias</h3>
+
+<p><a href="#do-comment-inputs-outputs-actsync"><code class="prettyprint">do()</code></a></p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.actuatorSync(comment : string, inputs : map, outputs : map, actSync : function) : Node</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>comment</td>
+<td>string</td>
+<td>optional, the comment of the filter</td>
+</tr>
+<tr>
+<td>inputs</td>
+<td>map</td>
+<td>optional, the input description</td>
+</tr>
+<tr>
+<td>outputs</td>
+<td>map</td>
+<td>optional, the output description</td>
+</tr>
+<tr>
+<td>actSync(signal, done)</td>
+<td>function</td>
+<td>optional, the act function, it throws Error or returns the result. If an error is threw, an error signal will be sent, otherwise, the return value will be injected to the signal as <code class="prettyprint">__result__</code> field</td>
+</tr>
+</tbody></table>
+
+<h3 id="function-actsync-signal-signal-any">function actSync(signal : Signal) : any</h3>
+
+<p>If error is threw, an ERROR signal is sent to stream, otherwise the return value is injected to the signal with a special name : <code class="prettyprint">__result__</code>. You can access it with <code class="prettyprint">signal.getResult()</code></p>
+
+<h2 id="do-comment-inputs-outputs-actsync">do ( comment, inputs, outputs, actSync )</h2>
+
+<blockquote>
+<p>Create a sync actuator</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">collar</span>
+  <span class="p">.</span><span class="nx">just</span><span class="p">({</span><span class="na">data</span> <span class="p">:</span> <span class="s2">"Hello World"</span><span class="p">})</span>  <span class="c1">// create a single signal source</span>
+  <span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"print data"</span><span class="p">,</span> <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>  <span class="c1">// print signal data</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"data"</span><span class="p">));</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">sink</span><span class="p">();</span>  <span class="c1">// drive the passive source</span>
+</code></pre>
+
+<p>An alias of <a href="#actuatorsync-comment-inputs-outputs-actsync"><code class="prettyprint">actuatorSync()</code></a>, see <a href="#actuatorsync-comment-inputs-outputs-actsync"><code class="prettyprint">actuatorSync()</code></a> for more details.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.do(comment : string, inputs : map, outputs : map, actSync : function) : Node</strong></p>
+
+<h2 id="processor-comment-inputs-outputs-process">processor ( comment, inputs, outputs, process )</h2>
+
+<blockquote>
+<p>Create a processor</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">proc</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">processor</span><span class="p">(</span><span class="s2">"double the payload"</span><span class="p">,</span>
+  <span class="p">(</span> <span class="nx">signal</span><span class="p">,</span> <span class="nx">done</span> <span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">payload</span> <span class="o">=</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span><span class="p">;</span>
+    <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">));</span>
+  <span class="p">});</span>
+</code></pre>
+
+<p>A processor modifies the incoming signal and emits it. It does not interact with external world. The <code class="prettyprint">process</code> function takes a callback function to emit an error signal or the modified signal.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.processor(comment : string, inputs : map, outputs : map, process : function) : Node</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>comment</td>
+<td>string</td>
+<td>optional, the comment of the filter</td>
+</tr>
+<tr>
+<td>inputs</td>
+<td>map</td>
+<td>optional, the input description</td>
+</tr>
+<tr>
+<td>outputs</td>
+<td>map</td>
+<td>optional, the output description</td>
+</tr>
+<tr>
+<td>process(signal, done)</td>
+<td>function</td>
+<td>optional, the process function, it takes a callback function as the second argument, which accepts an error and new signal. If the error argument is not empty, an error signal will be sent, otherwise, the new signal will be sent</td>
+</tr>
+</tbody></table>
+
+<h3 id="function-process-signal-signal-done-function-void">function process(signal : Signal, done : function) : void</h3>
+
+<p><code class="prettyprint">done</code> argument is a callback function with signature:</p>
+
+<p>function done(error : Error, newSignal : Signal) : void</p>
+
+<p>If error argument is not null, an ERROR signal is sent to stream otherwise the new signal is emitted.</p>
+
+<h2 id="processorsync-comment-inputs-outputs-processsync">processorSync ( comment, inputs, outputs, processSync )</h2>
+
+<blockquote>
+<p>Create a processor with processorSync</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">proc</span> <span class="o">=</span> <span class="nx">collar</span>
+  <span class="p">.</span><span class="nx">processorSync</span><span class="p">(</span><span class="s2">"double the payload"</span><span class="p">,</span>
+    <span class="p">(</span> <span class="nx">signal</span> <span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="p">});</span>
+</code></pre>
+
+<p>The synchronous version of <a href="#processor-comment-inputs-outputs-process"><code class="prettyprint">processor()</code></a>. The <code class="prettyprint">processSync</code> function does not take a callback function as argument, instead, its returned value is sent as the outgoing signal.</p>
+
+<h3 id="alias">Alias</h3>
+
+<p><a href="#map-comment-inputs-outputs-processsync"><code class="prettyprint">map()</code></a></p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.processorSync(comment : string, inputs : map, outputs : map, processSync : function) : Node</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>comment</td>
+<td>string</td>
+<td>optional, the comment of the filter</td>
+</tr>
+<tr>
+<td>inputs</td>
+<td>map</td>
+<td>optional, the input description</td>
+</tr>
+<tr>
+<td>outputs</td>
+<td>map</td>
+<td>optional, the output description</td>
+</tr>
+<tr>
+<td>processSync(signal)</td>
+<td>function</td>
+<td>optional, the process function, it throws Error or returns the new signal. If an error is threw, an error signal will be sent, otherwise, the returned signal will be emitted</td>
+</tr>
+</tbody></table>
+
+<h3 id="function-processsync-signal-signal-signal">function processSync(signal : Signal) : Signal</h3>
+
+<p>If error is threw, an ERROR signal is sent to stream, otherwise the return signal is emitted</p>
+
+<h2 id="map-comment-inputs-outputs-processsync">map ( comment, inputs, outputs, processSync )</h2>
+
+<blockquote>
+<p>Create a processor with processorSync</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">proc</span> <span class="o">=</span> <span class="nx">collar</span>
+  <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s2">"double the payload"</span><span class="p">,</span>
+    <span class="p">(</span> <span class="nx">signal</span> <span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="p">});</span>
+</code></pre>
+
+<p>The alias of <a href="#processorsync-comment-inputs-outputs-processsync"><code class="prettyprint">processorSync()</code></a>. See <a href="#processorsync-comment-inputs-outputs-processsync"><code class="prettyprint">processorSync()</code></a> for more details.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.map(comment : string, inputs : map, outputs : map, processSync : function) : Node</strong></p>
+
+<h2 id="ns-namespace">ns ( namespace )</h2>
+
+<blockquote>
+<p>To create a namespace</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">testNS</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s2">"com.collarjs.test"</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>Make sure to replace <code class="prettyprint">com.collarjs.test</code> with your namespace</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// helloWorldActuator belongs to "com.collarjs.test" namespace</span>
+<span class="kd">var</span> <span class="nx">helloWorldActuator</span> <span class="o">=</span> <span class="nx">testNS</span><span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello World"</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+
+<aside class="notice">
+<code>ns( namespace )</code> API is only available at top level <code>collar</code> object.
+</aside>
+
+<p>Create a new namespace. You can organize your flow with different namespaces.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#collar.ns(namespace : string) : namespace</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>namespace</td>
+<td>string</td>
+<td>the namespace name</td>
+</tr>
+</tbody></table>
+
+<h3 id="return-value">Return value</h3>
+
+<p>a new collar.js namespace</p>
+
+<h2 id="to-comment-node">to ( comment, node )</h2>
+
+<blockquote>
+<p>Connect to nodes</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s2">"payload is odd"</span><span class="p">,</span>
+  <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">processor</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"double payload"</span><span class="p">,</span>
+  <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">));</span>
+
+<span class="nx">filter</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="nx">processor</span><span class="p">);</span>
+</code></pre>
+
+<p>Connect current node to next node. This API returns the connected node so that you can chain nodes in a fluent way.</p>
+
+<blockquote>
+<p>Chain multiple nodes</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s2">"payload is odd"</span><span class="p">,</span>
+  <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">dbProcessor</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"double payload"</span><span class="p">,</span>
+  <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">));</span>
+
+<span class="kd">var</span> <span class="nx">incProcessor</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"increase payload by 1"</span><span class="p">,</span>
+  <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+
+<span class="nx">source</span>
+  <span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="nx">filter</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="nx">dbProcessor</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="nx">incProcessor</span><span class="p">);</span>
+</code></pre>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#Node.to(comment : string, node : Node) : Node</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>comment</td>
+<td>string</td>
+<td>optional, the comment of the node</td>
+</tr>
+<tr>
+<td>node</td>
+<td>Node</td>
+<td>the node to connect to</td>
+</tr>
+</tbody></table>
+
+          <h1 id="signal-class">Signal class</h1>
+
+<p>coming soon &hellip;</p>
+
+          <h1 id="dev-client">Dev client</h1>
+
+<p>coming soon &hellip;</p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="javascript">javascript</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
