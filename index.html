@@ -180,8 +180,13 @@ ns.sensor("send name", function(){
             <li>Install collar.js development tool
               <pre class="code-example"><code class="code-example-body prettyprint">
 sudo npm install collar-dev-server -g
-sudo npm install collar.js-dev-client --save
+sudo npm install collar.js-dev-client --save-dev
               </code></pre>
+              <br/>
+              Or download browser version directly:
+              <div class="code-example">
+<a class="button button-primary" href="/download/collar-dev-client.min.v0.1.3.js" download onclick="ga('send', 'event', 'Links', 'download', 'collar-dev-client.min.js');">Download collar-dev-client.min.js (alpha 0.1.3)</a>
+              </div>
             </li>
             <li>Run collar.js development tool
               <pre class="code-example"><code class="code-example-body prettyprint">
@@ -193,9 +198,18 @@ collar-dev-server
 require("collar.js-dev-client");
 collar.enableDevtool({url: "http://localhost:7500"});
               </code></pre>
+                <br/>
+                for browser app, you can simply include `collar-dev-client.min.js` in your web page
+              <pre class="code-example"><code class="code-example-body prettyprint">
+&lt;script src="js/collar.min.js"&gt;&lt;/script&gt;
+&lt;script src="js/collar-dev-client.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+// your flow goes here
+&lt;/script&gt;
+              </code></pre>
             </li>
             <li>
-              Run your module, and check collar development tool, your code is visualized like this:
+              Run your module, and check collar development tool, your code is visualized as following:
               <img class="fit-img" src="images/get-started-example.png"/>
             </li>
           </ol>

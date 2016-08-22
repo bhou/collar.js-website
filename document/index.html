@@ -955,13 +955,502 @@ It is not suggested to create node directly with this function. Use <code>sensor
 
 <p>a new collar.js namespace</p>
 
+          <h1 id="utils-api">Utils API</h1>
+
+<h2 id="just-value">just ( value )</h2>
+
+<blockquote>
+<p>Create a passive source with only one signal</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">collar</span><span class="p">.</span><span class="nx">just</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">sink</span><span class="p">();</span>
+
+<span class="c1">// output</span>
+<span class="mi">1</span>
+</code></pre>
+
+<p>Create a passive source with only one signal. A <code class="prettyprint">sink</code> is required to drive the passive source</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.just( value ) : Node</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>value</td>
+<td>any</td>
+<td>the signal data</td>
+</tr>
+</tbody></table>
+
+<h2 id="aslist-values">asList ( values )</h2>
+
+<blockquote>
+<p>Create a passive source with a list of signal</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">collar</span><span class="p">.</span><span class="nx">atList</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+  <span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">sink</span><span class="p">();</span>
+
+<span class="c1">// output</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+</code></pre>
+
+<p>Create a passive source with a list of signals. A <code class="prettyprint">sink</code> is required to drive the passive source</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.asList( values ) : Node</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>values</td>
+<td>array</td>
+<td>the list of data</td>
+</tr>
+</tbody></table>
+
+<h2 id="sink">sink ()</h2>
+
+<blockquote>
+<p>drive a passive source</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">collar</span><span class="p">.</span><span class="nx">just</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">sink</span><span class="p">();</span>
+
+<span class="c1">// output</span>
+<span class="mi">1</span>
+</code></pre>
+
+<p>Drive a passive source. A passive source is source who sends signal on demand. This is called back-pressure.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.sink( ) : Node</strong></p>
+
+<h2 id="errors-comment-inputs-outputs-errorhandler">errors ( comment, inputs, outputs, errorHandler )</h2>
+
+<blockquote>
+<p>Create a error handler node</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">errorHandler</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">errors</span><span class="p">((</span><span class="nx">signal</span><span class="p">,</span> <span class="nx">rethrow</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
+  <span class="nx">rethrow</span><span class="p">(</span><span class="nx">signal</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>Handle error signal in the stream. By default, the error signal is blocked from propagating in the stream.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>#NS.errors(comment : string, inputs : map, outputs : map, errorHandler : function) : Node</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>comment</td>
+<td>string</td>
+<td>optional, the comment of the sensor</td>
+</tr>
+<tr>
+<td>inputs</td>
+<td>map</td>
+<td>optional, the input description</td>
+</tr>
+<tr>
+<td>outputs</td>
+<td>map</td>
+<td>optional, the output description</td>
+</tr>
+<tr>
+<td>errorHandler</td>
+<td>function</td>
+<td>the error handler function</td>
+</tr>
+</tbody></table>
+
+<h3 id="function-errorhandler-signal-signal-rethrow-function-void">function errorHandler(signal : Signal, rethrow : function) : void</h3>
+
+<p>Pass a errorHandler function as parameter to handle the error signal. The error could be obtained from signal&rsquo;s <code class="prettyprint">error</code> field. By default, the signal is blocked by the error handler, you can keep propagating the error signal by rethrow it using <code class="prettyprint">rethrow</code> method.</p>
+
           <h1 id="signal-class">Signal class</h1>
 
-<p>coming soon &hellip;</p>
+<p>Signal is an envelop of stream data. It is immutable.</p>
+
+<h2 id="properties">Properties</h2>
+
+<blockquote>
+<p>Get signal id</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Signal</span><span class="p">({</span>
+  <span class="na">greeting</span> <span class="p">:</span> <span class="s2">"hello world"</span>
+<span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span> <span class="c1">// {greeting: "hello world"}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>  
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">seq</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span> <span class="c1">// the error, if the signal represents an error</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">end</span><span class="p">);</span> <span class="c1">// return true if signal represents an END signal</span>
+</code></pre>
+
+<h3 id="id">id</h3>
+
+<p>String. The id of the signal</p>
+
+<h3 id="seq">seq</h3>
+
+<p>String. The alias of signal id</p>
+
+<h3 id="payload">payload</h3>
+
+<p>Any. The payload of the signal</p>
+
+<h3 id="error">error</h3>
+
+<p>Error. The error in the signal, if any</p>
+
+<h3 id="end">end</h3>
+
+<p>boolean. If the signal is an END signal</p>
+
+<h2 id="constructor-payload">Constructor ( payload )</h2>
+
+<blockquote>
+<p>Create a signal</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">Signal</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">Signal</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Signal</span><span class="p">(</span><span class="s2">"payload"</span><span class="p">);</span>
+</code></pre>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>Signal:constructor(payload)</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payload</td>
+<td>any</td>
+<td>the payload of the signal</td>
+</tr>
+</tbody></table>
+
+<h2 id="new-payload">new ( payload )</h2>
+
+<blockquote>
+<p>Create a new signal from existing signal, keep the signal id</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">Signal</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">Signal</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Signal</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">s2</span> <span class="o">=</span> <span class="nx">s1</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s1</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span> <span class="c1">// =&gt; 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s2</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span> <span class="c1">// =&gt; 2</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s1</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">s2</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span> <span class="c1">// true</span>
+</code></pre>
+
+<p>Create a new signal from existing signal and keep the signal id.</p>
+
+<p>It is recommended to use this method to create a signal rather than creating a signal with constructor. This method keeps the signal id so that it is easy to track your data flow.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>Signal:new(payload)</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payload</td>
+<td>any</td>
+<td>the payload of the signal</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-path">get ( path )</h2>
+
+<blockquote>
+<p>get signal payload data</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">Signal</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">Signal</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Signal</span><span class="p">({</span>
+  <span class="na">greeting</span> <span class="p">:</span> <span class="s2">"hello world"</span>
+  <span class="na">user</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="na">address</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="na">city</span> <span class="p">:</span> <span class="s2">"Paris"</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">films</span> <span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"Avengers"</span><span class="p">,</span>
+    <span class="s2">"X-man"</span>
+  <span class="p">]</span>
+<span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"greeting"</span><span class="p">));</span> <span class="c1">// =&gt; hello world</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"user.address.city"</span><span class="p">));</span> <span class="c1">// =&gt; Paris</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">get</span><span class="p">([</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"address"</span><span class="p">,</span> <span class="s2">"city"</span><span class="p">]));</span> <span class="c1">// =&gt; Paris</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">get</span><span class="p">([</span><span class="s2">"films.0"</span><span class="p">]));</span> <span class="c1">// =&gt; Avengers</span>
+</code></pre>
+
+<p>Get the data in the signal by data path. You can use a string or an array to specify the json path.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>Signal:get( path ) : any</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>path</td>
+<td>string or array</td>
+<td>the path of the data to access</td>
+</tr>
+</tbody></table>
+
+<h2 id="set-path-value">set ( path, value )</h2>
+
+<blockquote>
+<p>set signal payload data at given json path</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">Signal</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">Signal</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Signal</span><span class="p">({});</span>
+<span class="nx">s</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">"user.address.city"</span><span class="p">,</span> <span class="s2">"New York"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">get</span><span class="p">([</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"address"</span><span class="p">,</span> <span class="s2">"city"</span><span class="p">]));</span> <span class="c1">// =&gt; New York</span>
+</code></pre>
+
+<p>Set the data by json path. You can use a string or an array to specify the json path.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>Signal:set( path, value ) : Signal</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>path</td>
+<td>string or array</td>
+<td>the path of the data to access</td>
+</tr>
+<tr>
+<td>value</td>
+<td>any</td>
+<td>the data</td>
+</tr>
+</tbody></table>
+
+<h2 id="del-path">del ( path )</h2>
+
+<blockquote>
+<p>delete signal payload data at given path</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">Signal</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">Signal</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Signal</span><span class="p">({</span>
+  <span class="na">greeting</span> <span class="p">:</span> <span class="s2">"hello world"</span>
+  <span class="na">user</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="na">address</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="na">city</span> <span class="p">:</span> <span class="s2">"Paris"</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">films</span> <span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"Avengers"</span><span class="p">,</span>
+    <span class="s2">"X-man"</span>
+  <span class="p">]</span>
+<span class="p">});</span>
+
+<span class="nx">s</span><span class="p">.</span><span class="nx">del</span><span class="p">(</span><span class="s2">"user.address"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"user"</span><span class="p">))</span> <span class="c1">// =&gt; {}</span>
+</code></pre>
+
+<p>Delete the data in the signal by data path. You can use a string or an array to specify the json path.</p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>Signal:del( path ) : Signal</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>path</td>
+<td>string or array</td>
+<td>the path of the data to access</td>
+</tr>
+</tbody></table>
+
+<h2 id="getresult">getResult ( )</h2>
+
+<blockquote>
+<p>get result of last actuator</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">collar</span><span class="p">.</span><span class="nx">just</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">getResult</span><span class="p">());</span> <span class="c1">// =&gt; 2</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">sink</span><span class="p">();</span>
+</code></pre>
+
+<p>Get the result of last actuator. Actuator will store the result to a special field <code class="prettyprint">__result__</code>. This function is a shortcut of <code class="prettyprint">signal.get(&quot;__result__&quot;);</code></p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>Signal:getResult() : any</strong></p>
+
+<h2 id="setpayload-payload">setPayload ( payload )</h2>
+
+<blockquote>
+<p>set signal payload</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">Signal</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">Signal</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Signal</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span> <span class="c1">// =&gt; 1</span>
+<span class="kd">var</span> <span class="nx">s1</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">setPayload</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="c1">// s' payload is always 1, as signal is immutable</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span> <span class="c1">// =&gt; 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s1</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span> <span class="c1">// =&gt; 2</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">s1</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
+</code></pre>
+
+<p>Create a new signal with new payload, it is an alias of <code class="prettyprint">new()</code></p>
+
+<h3 id="signature">Signature</h3>
+
+<p><strong>Signal:setPayload( payload ) : Signal</strong></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>value</td>
+<td>any</td>
+<td>the data</td>
+</tr>
+</tbody></table>
 
           <h1 id="dev-client">Dev client</h1>
 
-<p>coming soon &hellip;</p>
+<h2 id="installation">Installation</h2>
+
+<blockquote>
+<p>Use npm to install collar.js dev client</p>
+</blockquote>
+<pre class="highlight plaintext"><code>npm install collar.js-dev-tool --save-dev
+</code></pre>
+
+<p>Use npm to install collar.js dev client for nodejs application. Use webpack to package it to your bundle for browser application. Or download the minified version for your browser from <a href="http://collarjs.com">collarjs.com</a></p>
+
+<h2 id="usage">Usage</h2>
+
+<blockquote>
+<p>require collar.js-dev-client at the beginning of your application</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">require</span><span class="p">(</span><span class="s2">"collar.js-dev-client"</span><span class="p">);</span>
+
+<span class="c1">// your collar flow here</span>
+</code></pre>
+
+<blockquote>
+<p>or directly include it in your web page</p>
+</blockquote>
+<pre class="highlight html"><code><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/collar.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/collar-dev-client.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="c1">// your flow goes here</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre>
+
+<h3 id="nodejs">nodejs</h3>
+
+<p>require collar.js-dev-client at the beginning of your application.</p>
+
+<h3 id="browser">browser</h3>
+
+<p>include <code class="prettyprint">collar-dev-client.min.js</code> in your web page</p>
 
       </div>
       <div class="dark-box">
