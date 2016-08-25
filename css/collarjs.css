@@ -12,6 +12,15 @@
   font-size: 32px;
   text-align: center;
 }
+.sticky-header {
+  width:100%;
+  position:fixed;
+  height: 48px;
+  line-height: 48px;
+  top:0px;
+  background-color: #33C3F0;
+  z-index: 999;
+}
 .header {
   margin-top: 6rem;
   text-align: center; }
