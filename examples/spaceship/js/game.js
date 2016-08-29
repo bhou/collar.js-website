@@ -323,8 +323,8 @@ function gameLogic(game) {
       // calculate its initial position
       var angle = (game.rnd.frac() - 0.5) * 180;
 
-      var x = window.innerWidth / 2 * Math.cos(angle / 180 * Math.PI) + spaceship.x;
-      var y = window.innerHeight / 2 * Math.sin(angle / 180 * Math.PI) + spaceship.y;
+      var x = game.rnd.pick([-1, 1]) * window.innerWidth / 2 * Math.cos(angle / 180 * Math.PI) + spaceship.x;
+      var y = game.rnd.pick([-1, 1]) * window.innerHeight / 2 * Math.sin(angle / 180 * Math.PI) + spaceship.y;
 
       missile.reset(x, y);
       var profileIdx = game.rnd.integerInRange(0, missileProfile.length - 1);
