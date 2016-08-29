@@ -50,7 +50,7 @@ function isMobile() {
   return check;
 };
 
-function getParameterByName(name, url) {
+function getParam(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -60,38 +60,71 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-if (getParameterByName("dev")) {
+if (getParam("dev")) {
   collar.enableDevtool();
 }
 
 var gameLevel = 1;
-if (getParameterByName("level")) {
-	gameLevel = parseInt(getParameterByName("level"));
+if (getParam("level")) {
+	gameLevel = parseInt(getParam("level"));
 }
 
 var invincible = false;
-if (getParameterByName("invincible")) {
+if (getParam("invincible")) {
 	invincible = true;
+}
+
+var __interval__ = 5;
+if (getParam("interval")) {
+	__interval__ = parseInt(getParam("interval"));
 }
 
 var __speed__ = 5;
 var __rotate__ = 5;
-if (getParameterByName("speed")) {
-	__speed__ = parseInt(getParameterByName("speed"));
+if (getParam("speed")) {
+	__speed__ = parseInt(getParam("speed"));
 }
-if (getParameterByName("rotate")) {
-	__rotate__ = parseInt(getParameterByName("rotate"));
+if (getParam("rotate")) {
+	__rotate__ = parseInt(getParam("rotate"));
+}
+
+var __force_desktop__ = false;
+if (getParam("force")) {
+	__force_desktop__ = true;
 }
 
 var __width__ = window.innerWidth;
 var __height__ = window.innerHeight;
+var __missiles__ = null;
 if (!isMobile()) {
-	if (getParameterByName("w")) {
-		__width__ = parseInt(getParameterByName("w"));
+	if (getParam("w")) {
+		__width__ = parseInt(getParam("w"));
 	}
-	if (getParameterByName("h")) {
-		__height__ = parseInt(getParameterByName("h"));
+	if (getParam("h")) {
+		__height__ = parseInt(getParam("h"));
 	}
+} else if (!__force_desktop__){
+	__speed__ = 4;
+	__rotate__ = 5;
+	__missiles__ = [{
+    speed : 5,
+    rotate : 2
+  }, {
+    speed : 6,
+    rotate : 2
+  }, {
+    speed : 5,
+    rotate : 2
+  }, {
+    speed : 5,
+    rotate : 2
+  }, {
+    speed : 5,
+    rotate : 2
+  }, {
+    speed : 7,
+    rotate : 1
+  }]
 }
 
 

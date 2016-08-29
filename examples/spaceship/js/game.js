@@ -32,7 +32,7 @@ function gameLogic(game) {
 
   var missiles;
 
-  var missileProfile = [{
+  var missileProfile = __missiles__ || [{
     speed : 7,
     rotate : 2
   }, {
