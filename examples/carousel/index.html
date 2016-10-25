@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Collar.js Carousel Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/carousel.css">
+</head>
+<body>
+
+<div id="carousel1" style="width: 700px; height: 300px;"></div>
+
+<script src="./js/collar.min.v0.5.6.js"></script>
+<script src="./js/collar-dev-client.min.v0.1.8.js"></script>
+<script src="./js/carousel-post.js"></script>
+<script>
+var carousel1 = carousel();
+
+carousel1.api.initSync('carousel1');
+
+carousel1.api.setItemsSync([
+		{
+      img: 'https://unsplash.it/600/?random&abc=' + Math.floor((Math.random() * 100) + 1),
+      title: 'Example Title 1',
+      subtitle: 'subtitle',
+    },
+    {
+      img: 'https://unsplash.it/600/?random&abc=' + Math.floor((Math.random() * 100) + 1),
+      title: 'Example Title 2',
+      subtitle: 'subtitle',
+    },
+    {
+      img: 'https://unsplash.it/600/?random&abc=' + Math.floor((Math.random() * 100) + 1),
+      title: 'Example Title 3',
+      subtitle: 'subtitle',
+    },
+]);
+
+setInterval( function () {
+  carousel1.api.showNextSync();
+}, 5000);
+</script>
+</body>
+</html>
