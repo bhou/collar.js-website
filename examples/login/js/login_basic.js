@@ -12,8 +12,16 @@ if (getParameterByName("dev")) {
   collar.enableDevtool();
 }
 
-var ns = collar.ns('com.collarjs.example.login');
-var loginViewSensor = ns.sensor('ui sensor', function(options) {
+var uiNS = collar.ns('ui');
+var ns = collar.ns('credential check');
+var ns1 = collar.ns('credential ok');
+var ns2 = collar.ns('credential not ok');
+
+var input = ns.input('ns-input');
+var input1 = ns1.input('ns1-input');
+var input2 = ns2.input('ns2-input');
+
+var loginViewSensor = uiNS.sensor('ui sensor', function(options) {
   $( "#signin-btn" ).click(() => {
     this.send({
       event : 'signin'
@@ -21,7 +29,9 @@ var loginViewSensor = ns.sensor('ui sensor', function(options) {
   });
 });
 
-var loginPipeline = loginViewSensor
+loginViewSensor.to(input);
+
+var loginPipeline = input
   .when('user click signin button',
     {event : "must be 'signin'"}, signal => {
     return signal.get('event') === 'signin';
@@ -50,15 +60,23 @@ var loginPipeline = loginViewSensor
     }
   })
 
-loginPipeline
-  .when('credential ok', {__result__ : "must be 'ok'"}, signal => {
-    return signal.getResult() === "ok";
-  })
-  .do('alert login ok', signal => {
+loginPipeline.to(input1);
+
+
+var alert = ns.do('alert login ok', signal => {
     alert("login ok!");
   });
 
-loginPipeline
+input1
+  .when('credential ok', {__result__ : "must be 'ok'"}, signal => {
+    return signal.getResult() === "ok";
+  })
+
+alert.to(input1);
+
+loginPipeline.to(input2)
+
+input2
   .when('credential not ok', {__result__ : "must not be 'ok'"}, signal => {
     return signal.getResult() !== "ok";
   })

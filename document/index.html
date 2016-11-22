@@ -123,7 +123,7 @@
 └─┘└─┘┴─┘┴─┘┴ ┴┴└─└┘└─┘o└─┘└─┘┴ ┴
 </code></pre>
 
-<p><strong>version 0.3.8</strong></p>
+<p><strong>version 0.6.x</strong></p>
 
 <p>Collar.js helps you turn your thoughts into code, and visualize your thoughts in order to help you make high quality software.</p>
 
@@ -213,7 +213,7 @@
 
 <p>The example shown in this section is visualized as following:</p>
 
-<p><img alt="example flow" src="images/exemple-flow.png" /></p>
+<p><img alt="example flow" src="images/imags/exemple-flow.png" /></p>
 
 <h2 id="single-responsibility-principle">Single Responsibility Principle</h2>
 
@@ -247,7 +247,8 @@
 <blockquote>
 <p>Create a sensor</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">sensor</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">sensor</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">ns</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s1">'collarjs.demo.sensor'</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">sensor</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">sensor</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span>
       <span class="na">event</span> <span class="p">:</span> <span class="s2">"timeout"</span><span class="p">,</span>
@@ -262,7 +263,7 @@
 <blockquote>
 <p>Create a sensor with options</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">sensor</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">sensor</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">sensor</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">sensor</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">delay</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">;</span> <span class="c1">// default delay</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">delay</span><span class="p">)</span>
     <span class="nx">delay</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">delay</span><span class="p">;</span>  <span class="c1">// use delay in options</span>
@@ -327,7 +328,8 @@
 <p>Create a filter</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="c1">// only allow the signals, which have the 'age' greater than 18, pass</span>
-<span class="kr">const</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="kr">const</span> <span class="nx">ns</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s1">'collarjs.demo.filter'</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"age"</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="p">;</span>
 <span class="p">});</span>
 </code></pre>
@@ -337,7 +339,7 @@
 </blockquote>
 <pre class="highlight javascript"><code><span class="c1">// in collar dev tool, these two nodes are in gray color,</span>
 <span class="c1">// to warning you that they are not implemented yet.</span>
-<span class="nx">collar</span>
+<span class="nx">ns</span>
   <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="s2">"when age &gt; 18"</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">actuator</span><span class="p">(</span><span class="s2">"show alcohol products"</span><span class="p">);</span>
 </code></pre>
@@ -379,11 +381,11 @@
 <tr>
 <td>accept</td>
 <td>function</td>
-<td>optional, the accept function, make signal pass with returning true, block signal when returning false</td>
+<td>optional, the accept function, make signal pass when returning true, block signal when returning false</td>
 </tr>
 </tbody></table>
 
-<h3 id="function-accept-options-any-boolean">function accept(options : any) : boolean</h3>
+<h3 id="function-accept-signal-signal-boolean">function accept(signal : <a href="#signal-class">Signal</a>) : boolean</h3>
 
 <p>If no &lsquo;accept&rsquo; function specified, the filter accepts all signals</p>
 
@@ -393,7 +395,7 @@
 <p>Create a filter</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="c1">// only allow the signals, which have the 'age' greater than 18, pass</span>
-<span class="kr">const</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="kr">const</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"age"</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="p">;</span>
 <span class="p">});</span>
 </code></pre>
@@ -409,9 +411,10 @@
 <blockquote>
 <p>Create an actuator</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="c1">// an http request actuator</span>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">ns</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s1">'collarjs.demo.actuator'</span><span class="p">);</span>
+<span class="c1">// an http request actuator</span>
 <span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'request'</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">httpRequestActuator</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">actuator</span><span class="p">(</span><span class="s2">"make http request"</span><span class="p">,</span>
+<span class="kr">const</span> <span class="nx">httpRequestActuator</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">actuator</span><span class="p">(</span><span class="s2">"make http request"</span><span class="p">,</span>
   <span class="p">(</span><span class="nx">signal</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"url"</span><span class="p">);</span>
     <span class="nx">request</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
@@ -420,7 +423,7 @@
   <span class="p">});</span>
 
 <span class="c1">// print collarjs.com home page</span>
-<span class="nx">collar</span><span class="p">.</span><span class="nx">just</span><span class="p">({</span><span class="na">url</span><span class="p">:</span><span class="s2">"http://collarjs.com"</span><span class="p">})</span>  <span class="c1">// create a single signal source</span>
+<span class="nx">ns</span><span class="p">.</span><span class="nx">just</span><span class="p">({</span><span class="na">url</span><span class="p">:</span><span class="s2">"http://collarjs.com"</span><span class="p">})</span>  <span class="c1">// create a single signal source</span>
 <span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s2">"make http request"</span><span class="p">,</span> <span class="nx">httpRequestActuator</span><span class="p">)</span> <span class="c1">// to http request actuator</span>
 <span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"print response body"</span><span class="p">,</span> <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>  <span class="c1">// print result</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">getResult</span><span class="p">());</span>
@@ -430,6 +433,8 @@
 </code></pre>
 
 <p>Make side effects. An actuator does not change the incoming signal (the result of the actuator will be added to a special field in signal, <code class="prettyprint">__result__</code>, see Signal class for more details), it interacts with external worlds.</p>
+
+<p>Asynchronous Operator (act function accept a callback) </p>
 
 <h3 id="signature">Signature</h3>
 
@@ -466,7 +471,7 @@
 </tr>
 </tbody></table>
 
-<h3 id="function-act-signal-signal-done-function-void">function act(signal : Signal, done : function) : void</h3>
+<h3 id="function-act-signal-signal-done-function-void">function act(signal : <a href="#signal-class">Signal</a>, done : function) : void</h3>
 
 <p><code class="prettyprint">done</code> argument is a callback function with signature:</p>
 
@@ -481,7 +486,8 @@
 <blockquote>
 <p>Create a sync actuator</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="nx">collar</span>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">ns</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s1">'collarjs.demo.actuatorSync'</span><span class="p">)</span>
+<span class="nx">ns</span>
   <span class="p">.</span><span class="nx">just</span><span class="p">({</span><span class="na">data</span> <span class="p">:</span> <span class="s2">"Hello World"</span><span class="p">})</span>  <span class="c1">// create a single signal source</span>
   <span class="p">.</span><span class="nx">actuatorSync</span><span class="p">(</span><span class="s2">"print data"</span><span class="p">,</span> <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>  <span class="c1">// print signal data</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"data"</span><span class="p">));</span>
@@ -530,7 +536,7 @@
 </tr>
 </tbody></table>
 
-<h3 id="function-actsync-signal-signal-any">function actSync(signal : Signal) : any</h3>
+<h3 id="function-actsync-signal-signal-any">function actSync(signal : <a href="#signal-class">Signal</a>) : any</h3>
 
 <p>If error is threw, an ERROR signal is sent to stream, otherwise the return value is injected to the signal with a special name : <code class="prettyprint">__result__</code>. You can access it with <code class="prettyprint">signal.getResult()</code></p>
 
@@ -558,7 +564,8 @@
 <blockquote>
 <p>Create a processor</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">proc</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">processor</span><span class="p">(</span><span class="s2">"double the payload"</span><span class="p">,</span>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">ns</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s1">'collarjs.demo.processor'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">proc</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">processor</span><span class="p">(</span><span class="s2">"double the payload"</span><span class="p">,</span>
   <span class="p">(</span> <span class="nx">signal</span><span class="p">,</span> <span class="nx">done</span> <span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">payload</span> <span class="o">=</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span><span class="p">;</span>
     <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">));</span>
@@ -602,7 +609,7 @@
 </tr>
 </tbody></table>
 
-<h3 id="function-process-signal-signal-done-function-void">function process(signal : Signal, done : function) : void</h3>
+<h3 id="function-process-signal-signal-done-function-void">function process(signal : <a href="#signal-class">Signal</a>, done : function) : void</h3>
 
 <p><code class="prettyprint">done</code> argument is a callback function with signature:</p>
 
@@ -615,7 +622,8 @@
 <blockquote>
 <p>Create a processor with processorSync</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">proc</span> <span class="o">=</span> <span class="nx">collar</span>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">ns</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s1">'collarjs.demo.processorSync'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">proc</span> <span class="o">=</span> <span class="nx">ns</span>
   <span class="p">.</span><span class="nx">processorSync</span><span class="p">(</span><span class="s2">"double the payload"</span><span class="p">,</span>
     <span class="p">(</span> <span class="nx">signal</span> <span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="k">return</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
@@ -663,7 +671,7 @@
 </tr>
 </tbody></table>
 
-<h3 id="function-processsync-signal-signal-signal">function processSync(signal : Signal) : Signal</h3>
+<h3 id="function-processsync-signal-signal-signal">function processSync(signal : <a href="#signal-class">Signal</a>) : Signal</h3>
 
 <p>If error is threw, an ERROR signal is sent to stream, otherwise the return signal is emitted</p>
 
@@ -672,7 +680,8 @@
 <blockquote>
 <p>Create a processor with processorSync</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">proc</span> <span class="o">=</span> <span class="nx">collar</span>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">ns</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s1">'collarjs.demo.map'</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">proc</span> <span class="o">=</span> <span class="nx">ns</span>
   <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s2">"double the payload"</span><span class="p">,</span>
     <span class="p">(</span> <span class="nx">signal</span> <span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="k">return</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
@@ -691,7 +700,8 @@
 <p>To create a node, who doubles the odds input</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="c1">// a node turn odds to an even</span>
-<span class="kd">var</span> <span class="nx">oddDoubler</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+<span class="kr">const</span> <span class="nx">ns</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s1">'collarjs.demo.node'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">oddDoubler</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
   <span class="na">onSignal</span> <span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">signal</span><span class="p">){</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
       <span class="c1">// only allow odds pass</span>
@@ -713,7 +723,7 @@
 <blockquote>
 <p>To create an error handler.</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">errorHandler</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">errorHandler</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
   <span class="na">onError</span> <span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">signal</span><span class="p">,</span> <span class="nx">rethrow</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// print error</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
@@ -725,7 +735,7 @@
 <blockquote>
 <p>To create a sensor with &#39;watch&rsquo;, which send timeout signal in 10 seconds</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">evenPassFilter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">evenPassFilter</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
   <span class="na">watch</span> <span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">setTimer</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span>
@@ -739,7 +749,7 @@
 <blockquote>
 <p>To create a filter with &#39;accept&rsquo;.</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">evenPassFilter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">evenPassFilter</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
   <span class="na">accept</span> <span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">signal</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
   <span class="p">}</span>
@@ -749,7 +759,7 @@
 <blockquote>
 <p>To create an actuator with &#39;act&rsquo;, and put &#39;printed&rsquo; as result</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">printPayloadActuator</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">printPayloadActuator</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
   <span class="na">act</span> <span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">signal</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span>
     <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">"printed"</span><span class="p">)</span>
@@ -760,7 +770,7 @@
 <blockquote>
 <p>To create a processor with &#39;process&rsquo;, and increase payload by 1</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">addOneActuator</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">addOneActuator</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">node</span><span class="p">({</span>
   <span class="na">process</span> <span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">signal</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
   <span class="p">}</span>
@@ -849,32 +859,33 @@ It is not suggested to create node directly with this function. Use <code>sensor
 </tr>
 </tbody></table>
 
-<h2 id="to-comment-node">to ( comment, node )</h2>
+<h2 id="to-comment-inputnode-outputnode-asactuator">to ( comment, inputNode, outputNode, asActuator )</h2>
 
 <blockquote>
 <p>Connect to nodes</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s2">"payload is odd"</span><span class="p">,</span>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">ns</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s1">'collarjs.demo.to'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s2">"payload is odd"</span><span class="p">,</span>
   <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
 
-<span class="kd">var</span> <span class="nx">processor</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"double payload"</span><span class="p">,</span>
+<span class="kd">var</span> <span class="nx">processor</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"double payload"</span><span class="p">,</span>
   <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">));</span>
 
 <span class="nx">filter</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="nx">processor</span><span class="p">);</span>
 </code></pre>
 
-<p>Connect current node to next node. This API returns the connected node so that you can chain nodes in a fluent way.</p>
+<p>Connect current node to another pipeline. This API returns the tail of the pipeline so that you can chain nodes in a fluent way. </p>
 
 <blockquote>
 <p>Chain multiple nodes</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s2">"payload is odd"</span><span class="p">,</span>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s2">"payload is odd"</span><span class="p">,</span>
   <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
 
-<span class="kd">var</span> <span class="nx">dbProcessor</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"double payload"</span><span class="p">,</span>
+<span class="kd">var</span> <span class="nx">dbProcessor</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"double payload"</span><span class="p">,</span>
   <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">*</span> <span class="mi">2</span><span class="p">));</span>
 
-<span class="kd">var</span> <span class="nx">incProcessor</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"increase payload by 1"</span><span class="p">,</span>
+<span class="kd">var</span> <span class="nx">incProcessor</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">.</span><span class="k">do</span><span class="p">(</span><span class="s2">"increase payload by 1"</span><span class="p">,</span>
   <span class="nx">signal</span> <span class="o">=&gt;</span> <span class="nx">signal</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">signal</span><span class="p">.</span><span class="nx">payload</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
 
 <span class="nx">source</span>
@@ -885,7 +896,7 @@ It is not suggested to create node directly with this function. Use <code>sensor
 
 <h3 id="signature">Signature</h3>
 
-<p><strong>#Node.to(comment : string, node : Node) : Node</strong></p>
+<p><strong>#Node.to(comment : string, inputNode: Node, outputNode : Node, asActuator: boolean = false) : Node</strong></p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -902,18 +913,28 @@ It is not suggested to create node directly with this function. Use <code>sensor
 <td>optional, the comment of the node</td>
 </tr>
 <tr>
-<td>node</td>
+<td>inputNode</td>
 <td>Node</td>
-<td>the node to connect to</td>
+<td>the first node of the pipeline to connect to</td>
+</tr>
+<tr>
+<td>outputNode</td>
+<td>Node</td>
+<td>optional, the last node of the pipeline in order to chain to next node, default the same as inputNode</td>
+</tr>
+<tr>
+<td>asActuator</td>
+<td>boolean</td>
+<td>optional, act as an actuator or as a processor (default: false)</td>
 </tr>
 </tbody></table>
 
-<h2 id="ns-namespace">ns ( namespace )</h2>
+<h2 id="ns-namespace-tags">ns ( namespace, tags )</h2>
 
 <blockquote>
-<p>To create a namespace</p>
+<p>To create a namespace with two perspectives : module and author</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">testNS</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s2">"com.collarjs.test"</span><span class="p">)</span>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">testNS</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">ns</span><span class="p">(</span><span class="s2">"com.collarjs.test"</span><span class="p">,</span> <span class="p">{</span><span class="na">module</span><span class="p">:</span> <span class="s2">"demo.test"</span><span class="p">,</span> <span class="na">author</span><span class="p">:</span> <span class="s2">"Bo"</span><span class="p">})</span>
 </code></pre>
 
 <blockquote>
@@ -929,11 +950,13 @@ It is not suggested to create node directly with this function. Use <code>sensor
 <code>ns( namespace )</code> API is only available at top level <code>collar</code> object.
 </aside>
 
-<p>Create a new namespace. You can organize your flow with different namespaces.</p>
+<p>Create a new namespace. You can organize your flow with different namespaces. You can specify a tags parameter to show a different perspective of your code. </p>
+
+<p>For example: <code class="prettyprint">module: &#39;demo.test&#39;</code>. You can see how your module interacts with each other in collar dev tool.</p>
 
 <h3 id="signature">Signature</h3>
 
-<p><strong>#collar.ns(namespace : string) : namespace</strong></p>
+<p><strong>#collar.ns(namespace : string, tags: Map) : namespace</strong></p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -948,6 +971,11 @@ It is not suggested to create node directly with this function. Use <code>sensor
 <td>namespace</td>
 <td>string</td>
 <td>the namespace name</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>Map</td>
+<td>other perspectives</td>
 </tr>
 </tbody></table>
 
@@ -1141,6 +1169,10 @@ It is not suggested to create node directly with this function. Use <code>sensor
 <h3 id="payload">payload</h3>
 
 <p>Any. The payload of the signal</p>
+
+<h3 id="anonpayload">anonPayload</h3>
+
+<p>Any. The anonymous payload. When you create a signal with primitive type data, it will be store in anonymous payload, with a key <code class="prettyprint">__anon__</code>;</p>
 
 <h3 id="error">error</h3>
 
@@ -1381,12 +1413,12 @@ It is not suggested to create node directly with this function. Use <code>sensor
 <pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">Signal</span> <span class="o">=</span> <span class="nx">collar</span><span class="p">.</span><span class="nx">Signal</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Signal</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span> <span class="c1">// =&gt; 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">anonPayload</span><span class="p">);</span> <span class="c1">// =&gt; 1</span>
 <span class="kd">var</span> <span class="nx">s1</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">setPayload</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 
 <span class="c1">// s' payload is always 1, as signal is immutable</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span> <span class="c1">// =&gt; 1</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s1</span><span class="p">.</span><span class="nx">payload</span><span class="p">);</span> <span class="c1">// =&gt; 2</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">anonPayload</span><span class="p">);</span> <span class="c1">// =&gt; 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s1</span><span class="p">.</span><span class="nx">anonPayload</span><span class="p">);</span> <span class="c1">// =&gt; 2</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">s1</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
 </code></pre>
 
