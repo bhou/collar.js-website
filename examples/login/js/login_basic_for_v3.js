@@ -9,7 +9,8 @@ function getParameterByName(name, url) {
 }
 
 if (getParameterByName("dev")) {
-  collar.enableDevtool();
+  // collar.enableDevtool();
+  collar.use(new DevToolAddon())
 }
 
 var ns = collar.ns('com.collarjs.example.login');
