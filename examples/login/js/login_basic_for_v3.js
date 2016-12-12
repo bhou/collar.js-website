@@ -10,7 +10,10 @@ function getParameterByName(name, url) {
 
 if (getParameterByName("dev")) {
   // collar.enableDevtool();
-  collar.use(new DevToolAddon())
+  collar.use(new DevToolAddon({
+    // topology: false,
+    // signalflow: false
+  }))
 }
 
 var ns = collar.ns('com.collarjs.example.login');
@@ -49,7 +52,7 @@ var loginPipeline = loginViewSensor
     } else {
       return "email and password not match";
     }
-  })
+  });
 
 loginPipeline
   .when('credential ok', {__result__ : "must be 'ok'"}, signal => {
@@ -65,4 +68,4 @@ loginPipeline
   })
   .do('alert login failed', signal => {
     alert("login failed!");
-  })
+  });
