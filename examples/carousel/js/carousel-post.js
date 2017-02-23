@@ -1,6 +1,6 @@
 (function carousel () {
   window.carousel = function () {
-    window.collar.enableDevtool();
+    window.collar.use(new DevToolAddon());
 
     var ns,
         id;

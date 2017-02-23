@@ -76,7 +76,7 @@
             <a class="navbar-link" href="#example">Examples</a>
           </li>
           <li class="navbar-item">
-            <a class="navbar-link" href="/document/index.html">Docs</a>
+            <a class="navbar-link" href="https://bhou.gitbooks.io/collar-js-document/content/">Docs</a>
           </li>
           <li class="navbar-item">
             <a class="navbar-link" href="http://blog.bohou.fr/tag/collarjs/">Blog</a>
@@ -94,16 +94,19 @@
       <div style="position: relative; display: block;">
       <img class="fit-img" src="./images/collar.png"/>
       <h1 class="logo u-full-width" style="position: absolute;bottom: 0;">collar.js</h1>
-      <div style="position: absolute; bottom: 0; right: 0; font-size : 14px;">beta 0.7.0</div>
+      <div style="position: absolute; bottom: 0; right: 0; font-size : 14px;">1.0.0</div>
       </div>
     </div>
     <div class="row">
       <h4 class="title">A better way to make your code comprehensible.</h4>
       <a class="button button-primary" href="#get-started">Get Started</a>
-      <a class="button button-primary" href="document/index.html">Get Docs</a>
+      <a class="button button-primary" href="https://bhou.gitbooks.io/collar-js-document/content/">Get Docs</a>
     </div>
   </section>
   <div class="container">
+    <div class="row" style="color: #FF0000;">
+      Notice: We have recently published our first major release version 1.0.0, please upgrade your collar.js, collar.js-dev-client, and collar-dev-server to version 1.+
+    </div>
     <div class="docs-section" id="intro">
       <h6 class="docs-header">What is collar.js</h6>
       <p>collar.js = an asynchronous library + visualization development tool</p>
@@ -159,7 +162,7 @@ npm install collar.js --save
             </li>
             <li>or download 'collar.min.js' directly
               <div class="code-example">
-<a class="download-button button button-primary" href="/download/collar.min.v0.7.0.js" download onclick="ga('send', 'event', 'Links', 'download', 'collar.min.js');">Download collar.min.js (beta 0.7.0)</a>
+<a class="download-button button button-primary" href="/download/collar.min.v1.0.0.js" download onclick="ga('send', 'event', 'Links', 'download', 'collar.min.js');">Download collar.min.js (v1.0.0)</a>
               </div>
             </li>
           </ul>
@@ -204,7 +207,7 @@ ns.sensor("send name", function(){
         </li>
         <li>Visualize your code by enabling the development tool.
           <ol>
-            <li>Install collar.js development tool (last version: 0.3.3)
+            <li>Install collar.js development tool (last version: 1.0.0)
               <pre class="code-example"><code class="code-example-body prettyprint">
 sudo npm install collar-dev-server -g
 sudo npm install collar.js-dev-client --save-dev
@@ -212,7 +215,7 @@ sudo npm install collar.js-dev-client --save-dev
               <br/>
               Or download browser version directly:
               <div class="code-example">
-<a class="download-button button button-primary" href="/download/collar-dev-client.min.v0.3.0.js" download onclick="ga('send', 'event', 'Links', 'download', 'collar-dev-client.min.js');">collar-dev-client.min.js</a>
+<a class="download-button button button-primary" href="/download/collar-dev-client.min.v1.0.0.js" download onclick="ga('send', 'event', 'Links', 'download', 'collar-dev-client.min.js');">collar-dev-client.min.js</a>
               </div>
             </li>
             <li>Run collar.js development tool
@@ -222,8 +225,8 @@ collar-dev-server
             </li>
             <li>At the beginning of your module, enable collar development tool
               <pre class="code-example"><code class="code-example-body prettyprint">
-require("collar.js-dev-client");
-collar.enableDevtool({url: "http://localhost:7500"});
+const DevToolAddon = require("collar.js-dev-client");
+collar.use(new DevToolAddon());
               </code></pre>
                 <br/>
                 for browser app, you can simply include `collar-dev-client.min.js` in your web page
@@ -237,7 +240,7 @@ collar.enableDevtool({url: "http://localhost:7500"});
             </li>
             <li>
               Run your module, and check collar development tool, your code is visualized as following:
-              <img class="fit-img" src="images/get-started-example.png"/>
+              <img class="fit-img" src="images/get-started-flow-color.jpg"/>
             </li>
           </ol>
         </li>
